@@ -1,0 +1,41 @@
+## Put comments here that give an overall description of what your
+## functions do
+
+## Write a short comment describing this function
+## In the first function, firstly, initial m(which is used for
+##caching the inverse matrix)
+## mat() to get the matrix
+## setM() to set the inverse matrix to m
+## getM() to get the inverse matrix
+## then return a list containing the matrix, setM and the inverse
+
+makeCacheMatrix <- function(x = matrix()) {
+    m <- NULL
+    mat <- function() x
+    setM <- function(matri) m <<- matri
+    getM <- function() m
+    
+    list (mat = mat, setM = setM, getM = getM)
+
+}
+
+
+## Write a short comment describing this function
+## firstly to get m, if cached, return m
+## else recalculating the reverse matrix of m and return m
+
+cacheSolve <- function(x) {
+        ## Return a matrix that is the inverse of 'x'
+    m <- x$getM()
+    if(!is.null(m)){
+        message("Cache found !")
+        return (m)
+    }
+    else {
+        message("No cache found. Recalculating...")
+        data <- x$mat()
+        m <- solve(data)
+        x$setM(m)
+        return(m)
+    }
+}
